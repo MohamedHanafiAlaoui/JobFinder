@@ -1,0 +1,63 @@
+<div class="space-y-4">
+
+  <!-- Search -->
+  <div class="flex gap-3">
+    <input 
+      [(ngModel)]="keyword"
+      type="text"
+      placeholder="Search by category..."
+      class="flex-1 border px-4 py-2 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
+    />
+
+    <button 
+      (click)="applyFilters()"
+      class="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+      Search
+    </button>
+
+    <button 
+      (click)="clear()"
+      class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition">
+      Clear
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+    <!-- Category -->
+    <select 
+      [(ngModel)]="selectedCategory"
+      (change)="applyFilters()"
+      class="border px-3 py-2 rounded-lg shadow-sm">
+      <option value="">All Categories</option>
+      <option *ngFor="let c of categories" [value]="c">
+        {{ c }}
+      </option>
+    </select>
+
+    <!-- Level -->
+    <select 
+      [(ngModel)]="selectedLevel"
+      (change)="applyFilters()"
+      class="border px-3 py-2 rounded-lg shadow-sm">
+      <option value="">All Levels</option>
+      <option *ngFor="let l of levels" [value]="l">
+        {{ l }}
+      </option>
+    </select>
+
+    <!-- Location -->
+    <select 
+      [(ngModel)]="selectedLocation"
+      (change)="applyFilters()"
+      class="border px-3 py-2 rounded-lg shadow-sm">
+      <option value="">All Locations</option>
+      <option *ngFor="let loc of locations" [value]="loc">
+        {{ loc }}
+      </option>
+    </select>
+
+  </div>
+
+</div>
