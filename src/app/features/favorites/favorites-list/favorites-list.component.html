@@ -1,0 +1,16 @@
+<div class="max-w-5xl mx-auto mt-10">
+
+  <h1 class="text-3xl font-bold mb-6">My Favorite Jobs ❤️</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <app-job-card 
+      *ngFor="let job of favorites"
+      [job]="job">
+    </app-job-card>
+  </div>
+
+  <p *ngIf="favorites.length === 0" class="text-gray-500 mt-10 text-center">
+    No favorite jobs yet.
+  </p>
+
+</div>
