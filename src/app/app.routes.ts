@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { authGuard } from './core/guard/auth.guard';
+import { jobsResolver } from './core/resolvers/job.resolver';
 
 export const routes: Routes = [
   { path: 'auth/login', component: LoginComponent },
@@ -16,6 +17,7 @@ export const routes: Routes = [
 
   {
     path: 'jobs',
+    resolve: { list: jobsResolver },
     loadChildren: () =>
       import('./features/jobs/jobs.routes').then(m => m.JOBS_ROUTES)
   },
