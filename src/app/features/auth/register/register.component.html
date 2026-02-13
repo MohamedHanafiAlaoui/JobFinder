@@ -1,0 +1,16 @@
+<div class="max-w-md mx-auto mt-10 p-6 border rounded shadow">
+  <h2 class="text-2xl font-bold mb-4">Créer un compte</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+    <input class="border p-2 w-full" placeholder="Prénom" formControlName="firstName" />
+    <input class="border p-2 w-full" placeholder="Nom" formControlName="lastName" />
+    <input class="border p-2 w-full" placeholder="Email" formControlName="email" />
+    <input class="border p-2 w-full" placeholder="Mot de passe" type="password" formControlName="password" />
+
+    <p class="text-red-600" *ngIf="error">{{ error }}</p>
+
+    <button class="bg-blue-600 text-white px-4 py-2 rounded w-full" type="submit">
+      {{ loading ? 'Création...' : 'S’inscrire' }}
+    </button>
+  </form>
+</div>
