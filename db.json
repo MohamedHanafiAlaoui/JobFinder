@@ -1,0 +1,33 @@
+{
+  "users": [
+    {
+      "id": "d187",
+      "firstName": "Corporis aspernatur ",
+      "lastName": "Aliquid neque irure ",
+      "email": "mm@mm.mm",
+      "password": "Pa$$w0rd!"
+    },
+    {
+      "id": "e309",
+      "firstName": "aaa",
+      "lastName": "aa",
+      "email": "mm@mm.mmm",
+      "password": "Pa$$w0rd!"
+    }
+  ],
+  "applications": [
+    {
+      "id": "11f2",
+      "userId": "e309",
+      "offerId": 19987712,
+      "apiSource": "unknown",
+      "title": "Department Supervisor",
+      "company": "Walmart",
+      "location": "Akron, OH",
+      "url": "https://www.themuse.com/jobs/walmart/department-supervisor-dea16d",
+      "status": "refuse",
+      "notes": "",
+      "dateAdded": "2026-02-12T12:49:12.686Z"
+    }
+  ]
+}
