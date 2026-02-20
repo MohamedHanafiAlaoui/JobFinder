@@ -13,15 +13,15 @@ import { SearchFilterComponent } from '../../../shared/components/search-filter/
 })
 export class JobListComponent implements OnInit {
 
-  allJobs: any[] = [];   // كل النتائج من API
-  jobs: any[] = [];      // النتائج المعروضة بعد pagination
+  allJobs: any[] = [];   
+  jobs: any[] = [];      
   loading = false;
 
   page = 1;
-  itemsPerPage = 6;      // عدد العناصر في كل صفحة
+  itemsPerPage = 6;      
   totalPages = 1;
 
-  // Filters
+ 
   keyword = '';
   selectedCategory = '';
   selectedLevel = '';
@@ -47,7 +47,7 @@ export class JobListComponent implements OnInit {
     this.loading = true;
 
     const params: any = {
-      page: 0,            // API always page 0
+      page: 0,            
       descending: true
     };
 
@@ -59,7 +59,6 @@ export class JobListComponent implements OnInit {
       next: (res) => {
         let results = res.results;
 
-        // 🔥 Title Search (manual)
         if (this.keyword) {
           const kw = this.keyword.toLowerCase();
           results = results.filter((job: any) =>
@@ -67,10 +66,8 @@ export class JobListComponent implements OnInit {
           );
         }
 
-        // نخزن جميع النتائج
         this.allJobs = results;
 
-        // نطبّق pagination
         this.updatePagination();
 
         this.loading = false;
@@ -102,5 +99,10 @@ export class JobListComponent implements OnInit {
       this.page--;
       this.updatePagination();
     }
+  }
+
+  logAllData() {
+    console.log('All Jobs:', this.allJobs);
+    console.log('Filtered Jobs:', this.jobs);
   }
 }

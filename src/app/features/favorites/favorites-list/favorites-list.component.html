@@ -4,12 +4,12 @@
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <app-job-card 
-      *ngFor="let job of favorites"
+      *ngFor="let job of favorites$ | async"
       [job]="job">
     </app-job-card>
   </div>
 
-  <p *ngIf="favorites.length === 0" class="text-gray-500 mt-10 text-center">
+  <p *ngIf="(favorites$ | async)?.length === 0" class="text-gray-500 mt-10 text-center">
     No favorite jobs yet.
   </p>
 

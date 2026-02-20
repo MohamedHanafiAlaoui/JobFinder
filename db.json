@@ -28,6 +28,19 @@
       "status": "refuse",
       "notes": "",
       "dateAdded": "2026-02-12T12:49:12.686Z"
+    },
+    {
+      "id": "0880",
+      "userId": "d187",
+      "offerId": 19832334,
+      "apiSource": "unknown",
+      "title": "Retail Manager - Tire and Battery Center",
+      "company": "Walmart",
+      "location": "Omaha, NE",
+      "url": "https://www.themuse.com/jobs/walmart/retail-manager-tire-and-battery-center-81dbb3",
+      "status": "en_attente",
+      "notes": "",
+      "dateAdded": "2026-02-16T18:17:44.234Z"
     }
   ]
 }

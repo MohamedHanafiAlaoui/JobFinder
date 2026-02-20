@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { JobCardComponent } from '../../../shared/components/job-card/job-card.component';
 import { CommonModule } from '@angular/common';
-import { FavoriteService } from '../../../core/services/favorite/favorite.service';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectAllFavorites } from '../store/favorites.selectors';
+import * as FavoritesActions from '../store/favorites.actions';
+import { JobCardComponent } from '../../../shared/components/job-card/job-card.component';
 
 @Component({
   selector: 'app-favorites-list',
@@ -11,11 +14,11 @@ import { FavoriteService } from '../../../core/services/favorite/favorite.servic
 })
 export class FavoritesListComponent implements OnInit {
 
-  favorites: any[] = [];
+  favorites$: Observable<any[]> = this.store.pipe(select(selectAllFavorites));
 
-  constructor(private favService: FavoriteService) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.favorites = this.favService.getFavorites();
+    this.store.dispatch(FavoritesActions.loadFavorites());
   }
 }
