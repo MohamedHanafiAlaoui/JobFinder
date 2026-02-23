@@ -38,9 +38,22 @@
       "company": "Walmart",
       "location": "Omaha, NE",
       "url": "https://www.themuse.com/jobs/walmart/retail-manager-tire-and-battery-center-81dbb3",
-      "status": "en_attente",
+      "status": "refuse",
       "notes": "",
       "dateAdded": "2026-02-16T18:17:44.234Z"
+    },
+    {
+      "id": "862c",
+      "userId": "d187",
+      "offerId": 21315992,
+      "apiSource": "unknown",
+      "title": "Staff Data Engineer, Tech Strategy & Ops - DROIDS Insights",
+      "company": "Riot Games",
+      "location": "Los Angeles, CA",
+      "url": "https://www.themuse.com/jobs/riotgames/staff-data-engineer-tech-strategy-ops-droids-insights",
+      "status": "en_attente",
+      "notes": "",
+      "dateAdded": "2026-02-23T11:08:35.929Z"
     }
   ]
 }

@@ -13,18 +13,15 @@ import { SearchFilterComponent } from '../../../shared/components/search-filter/
 })
 export class JobListComponent implements OnInit {
 
-  allJobs: any[] = [];   
-  jobs: any[] = [];      
+  jobs: any[] = [];
   loading = false;
 
   page = 1;
-  itemsPerPage = 6;      
+  itemsPerPage = 6;
   totalPages = 1;
 
- 
   keyword = '';
   selectedCategory = '';
-  selectedLevel = '';
   selectedLocation = '';
 
   constructor(private jobsService: JobsService) {}
@@ -36,73 +33,64 @@ export class JobListComponent implements OnInit {
   applyFilters(filters: any) {
     this.keyword = filters.keyword;
     this.selectedCategory = filters.category;
-    this.selectedLevel = filters.level;
     this.selectedLocation = filters.location;
 
     this.page = 1;
     this.search();
   }
 
-  search() {
-    this.loading = true;
+search() {
+  this.loading = true;
 
-    const params: any = {
-      page: 0,            
-      descending: true
-    };
+  const params: any = {
+    page: this.page,
+    per_page: this.itemsPerPage
+  };
 
-    if (this.selectedCategory) params.category = this.selectedCategory;
-    if (this.selectedLevel) params.level = this.selectedLevel;
-    if (this.selectedLocation) params.location = this.selectedLocation;
+  if (this.selectedCategory) params.category = this.selectedCategory;
+  if (this.selectedLocation) params.location = this.selectedLocation;
 
-    this.jobsService.getJobs(params).subscribe({
-      next: (res) => {
-        let results = res.results;
+  this.jobsService.getJobs(params).subscribe({
+    next: (res) => {
 
-        if (this.keyword) {
-          const kw = this.keyword.toLowerCase();
-          results = results.filter((job: any) =>
-            job.name?.toLowerCase().includes(kw)
-          );
-        }
+      let results = res.results || [];
 
-        this.allJobs = results;
-
-        this.updatePagination();
-
-        this.loading = false;
-      },
-      error: () => {
-        this.loading = false;
+      if (this.keyword.trim() !== '') {
+        const kw = this.keyword.toLowerCase();
+        results = results.filter((job: any) =>
+          job.name?.toLowerCase().includes(kw)
+        );
       }
-    });
-  }
 
-  updatePagination() {
-    const start = (this.page - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
+      if (results.length === 0 && this.page > 1) {
+        this.page = 1;
+        this.search();
+        return;
+      }
 
-    this.jobs = this.allJobs.slice(start, end);
+      this.jobs = results;
+      this.totalPages = res.page_count && res.page_count > 0 ? res.page_count : 1;
 
-    this.totalPages = Math.ceil(this.allJobs.length / this.itemsPerPage);
-  }
+      this.loading = false;
+    },
+    error: () => {
+      this.loading = false;
+    }
+  });
+}
+
 
   nextPage() {
     if (this.page < this.totalPages) {
       this.page++;
-      this.updatePagination();
+      this.search();
     }
   }
 
   prevPage() {
     if (this.page > 1) {
       this.page--;
-      this.updatePagination();
+      this.search();
     }
-  }
-
-  logAllData() {
-    console.log('All Jobs:', this.allJobs);
-    console.log('Filtered Jobs:', this.jobs);
   }
 }

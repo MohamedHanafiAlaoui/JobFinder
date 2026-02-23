@@ -12,13 +12,12 @@ export class SearchFilterComponent {
 
   keyword = '';
   selectedCategory = '';
-  selectedLevel = '';
   selectedLocation = '';
 
   @Output() onFilter = new EventEmitter<any>();
 
   categories = [
-    'Software Engineering',
+    'Engineering',
     'Data Science',
     'Marketing',
     'Sales',
@@ -26,26 +25,16 @@ export class SearchFilterComponent {
     'Product'
   ];
 
-  levels = [
-    'Entry Level',
-    'Mid Level',
-    'Senior Level',
-    'Internship'
-  ];
-
   locations = [
     'New York, NY',
     'San Francisco, CA',
-    'Remote',
-    'London, UK',
-    'Berlin, Germany'
+    'Remote'
   ];
 
   applyFilters() {
     this.onFilter.emit({
       keyword: this.keyword,
       category: this.selectedCategory,
-      level: this.selectedLevel,
       location: this.selectedLocation
     });
   }
@@ -53,7 +42,6 @@ export class SearchFilterComponent {
   clear() {
     this.keyword = '';
     this.selectedCategory = '';
-    this.selectedLevel = '';
     this.selectedLocation = '';
 
     this.applyFilters();

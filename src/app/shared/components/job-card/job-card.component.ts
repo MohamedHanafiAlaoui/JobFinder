@@ -4,6 +4,8 @@ import { StripHtmlPipe } from '../../pipes/strip-html.pipe';
 import { FavoriteService } from '../../../core/services/favorite/favorite.service';
 import { ApplicationsService } from '../../../core/services/applications/applications.service';
 import { AuthService } from '../../../core/services/auth/auth.service';
+import { Store } from '@ngrx/store';
+import * as FavoritesActions from '../../../features/favorites/store/favorites.actions';
 
 @Component({
   selector: 'app-job-card',
@@ -20,7 +22,8 @@ export class JobCardComponent implements OnInit {
   constructor(
     private favService: FavoriteService,
     private appService: ApplicationsService,
-    private auth: AuthService
+    private auth: AuthService,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +38,8 @@ export class JobCardComponent implements OnInit {
 
   toggleFavorite() {
     this.favService.toggle(this.job);
+
+    this.store.dispatch(FavoritesActions.loadFavorites());
   }
 
   isFav() {
@@ -54,7 +59,7 @@ export class JobCardComponent implements OnInit {
       this.appService.isTracked(jobId).subscribe(res => {
         if (res.length > 0 && res[0]?.id != null) {
 
-          const applicationId = res[0].id; // STRING or NUMBER
+          const applicationId = res[0].id;
 
           this.appService.removeApplication(applicationId).subscribe(() => {
             this.isTracked = false;

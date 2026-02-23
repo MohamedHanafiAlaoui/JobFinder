@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class JobsService {
@@ -8,7 +8,12 @@ export class JobsService {
   constructor(private http: HttpClient) {}
 
   getJobs(params: any) {
-    return this.http.get<any>(this.apiUrl, { params });
+    let httpParams = new HttpParams();
+
+    Object.keys(params).forEach(key => {
+      httpParams = httpParams.set(key, params[key]);
+    });
+
+    return this.http.get<any>(this.apiUrl, { params: httpParams });
   }
 }
-

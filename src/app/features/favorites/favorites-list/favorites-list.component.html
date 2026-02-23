@@ -1,16 +1,36 @@
 <div class="max-w-5xl mx-auto mt-10">
 
-  <h1 class="text-3xl font-bold mb-6">My Favorite Jobs ❤️</h1>
+  <!-- Titre -->
+  <h1 class="text-3xl font-bold mb-6 flex items-center gap-3">
+    <i class="fa-solid fa-heart text-red-500"></i>
+    Mes offres favorites
+  </h1>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <app-job-card 
-      *ngFor="let job of favorites$ | async"
-      [job]="job">
-    </app-job-card>
-  </div>
+  <ng-container *ngIf="favorites$ | async as favorites">
 
-  <p *ngIf="(favorites$ | async)?.length === 0" class="text-gray-500 mt-10 text-center">
-    No favorite jobs yet.
-  </p>
+ 
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div *ngFor="let job of favorites">
+  <app-job-card [job]="job"></app-job-card>
+</div>
+
+    </div>
+
+
+    <div *ngIf="favorites.length === 0" class="text-gray-500 mt-16 text-center flex flex-col items-center gap-3">
+
+      <i class="fa-regular fa-face-smile-beam text-5xl text-gray-400"></i>
+
+      <p class="text-xl font-semibold">Aucun emploi favori pour le moment</p>
+
+      <p class="text-sm text-gray-500">
+        Ajoutez des offres à vos favoris en cliquant sur 
+        <i class="fa-solid fa-heart text-red-400"></i>
+        dans une fiche emploi.
+      </p>
+
+    </div>
+
+  </ng-container>
 
 </div>

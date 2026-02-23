@@ -13,7 +13,6 @@ export class NavbarComponent {
 
   menuOpen = false;
 
-  // computed returns a boolean, not a signal
   isLoggedIn = computed(() => this.auth.isLoggedIn());
 
   constructor(private auth: AuthService, private router: Router) {}

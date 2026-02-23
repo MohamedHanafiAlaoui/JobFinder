@@ -13,7 +13,6 @@ export class FavoritesEffects {
     private favoriteService: FavoriteService
   ) {}
 
-  // Effect to load favorites
   loadFavorites$ = createEffect(() =>
     this.actions$.pipe(
       ofType(FavoritesActions.loadFavorites),

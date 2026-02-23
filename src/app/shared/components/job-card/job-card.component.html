@@ -1,60 +1,79 @@
-<!-- src/app/shared/components/job-card/job-card.component.html -->
-<div class="border rounded-xl p-6 shadow-md hover:shadow-lg transition bg-white flex flex-col gap-4">
+<div class="border rounded-xl p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition bg-white flex flex-col gap-4">
 
-  <!-- Header -->
   <div>
     <h2 class="text-xl font-bold text-gray-900 leading-tight">
       {{ job.name }}
     </h2>
 
     <div class="flex items-center gap-3 text-gray-600 mt-1">
-      <span class="font-medium">{{ job.company?.name }}</span>
+      <span class="font-medium">
+        <i class="fa-solid fa-building text-gray-500"></i>
+        {{ job.company?.name }}
+      </span>
+
       <span class="text-gray-400">•</span>
-      <span class="flex items-center gap-1">
-        📍 {{ job.locations?.[0]?.name }}
+
+      <span class="flex items-center gap-1 text-gray-500">
+        <i class="fa-solid fa-location-dot"></i>
+        {{ job.locations?.[0]?.name || 'Non spécifié' }}
       </span>
     </div>
   </div>
 
-  <!-- Description -->
   <p class="text-gray-700 text-sm line-clamp-3">
     {{ job.contents | stripHtml }}
   </p>
 
-  <!-- Footer -->
   <div class="flex justify-between items-center mt-2">
 
-    <p class="text-gray-400 text-xs">
-      Published: {{ job.publication_date | date }}
+    <p class="text-gray-400 text-xs flex items-center gap-1">
+      <i class="fa-regular fa-calendar"></i>
+      Publié le : {{ job.publication_date | date }}
     </p>
 
-    <a 
-      [href]="job.refs?.landing_page"
-      target="_blank"
-      class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition">
-      View Job
-    </a>
+    <div class="flex items-center gap-3">
 
-    <!-- FAVORITE BUTTON -->
-    <button *ngIf="isLogged()" (click)="toggleFavorite()"> 
-      <span 
-        class="text-2xl transition"
-        [class.text-red-500]="isFav()"
-        [class.text-gray-300]="!isFav()">
-        ♥
-      </span> 
-    </button>
+      <a 
+        [href]="job.refs?.landing_page"
+        target="_blank"
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition shadow flex items-center gap-2">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        Voir l'offre
+      </a>
 
-    <!-- APPLICATION BUTTON -->
-    <button 
-      *ngIf="isLogged()" 
-      (click)="toggleApplication()"
-      class="px-3 py-1 rounded-lg text-sm font-medium transition"
-      [class.bg-green-600]="isTracked"
-      [class.bg-gray-300]="!isTracked"
-      [class.text-white]="isTracked">
-      {{ isTracked ? 'Déjà suivi' : 'Suivre cette candidature' }}
-    </button>
+      <button 
+        *ngIf="isLogged()" 
+        (click)="toggleFavorite()"
+        class="p-2 rounded-full transition shadow-sm hover:shadow-md hover:scale-110"
+        [class.bg-red-100]="isFav()"
+        [class.bg-gray-100]="!isFav()"
+      >
+        <i 
+          class="fa-solid fa-heart text-2xl transition"
+          [class.text-red-500]="isFav()"
+          [class.text-gray-400]="!isFav()">
+        </i>
+      </button>
+
+      <button 
+        *ngIf="isLogged()" 
+        (click)="toggleApplication()"
+        class="px-4 py-2 rounded-lg text-sm font-medium transition shadow-sm hover:shadow-md flex items-center gap-2"
+        [class.bg-green-600]="isTracked"
+        [class.bg-gray-200]="!isTracked"
+        [class.text-white]="isTracked"
+        [class.text-gray-700]="!isTracked"
+      >
+        <i 
+          class="fa-solid"
+          [class.fa-check]="isTracked"
+          [class.fa-plus]="!isTracked">
+        </i>
+
+        {{ isTracked ? 'Déjà suivi' : 'Suivre cette candidature' }}
+      </button>
+
+    </div>
 
   </div>
 
