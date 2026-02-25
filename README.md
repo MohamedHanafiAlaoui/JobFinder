@@ -1,27 +1,133 @@
-# JobBoard
+# 💼 JobFinder
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Application de recherche d'emploi développée en **Angular 17** sous forme de **Single Page Application (SPA)**.
 
-## Development server
+## 📌 Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+**JobFinder** est une application permettant aux chercheurs d'emploi de :
 
-## Code scaffolding
+- 🔎 Rechercher des offres d’emploi via une API publique
+- ⭐ Ajouter des offres en favoris
+- 📄 Suivre l’état de leurs candidatures
+- 👤 Gérer leur profil utilisateur
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Le projet utilise **JSON Server** pour simuler une API REST et persister les données (utilisateurs, favoris, candidatures).  
+Aucun backend personnalisé n’a été développé.
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 🛠️ Technologies utilisées
 
-## Running unit tests
+- Angular 17+
+- TypeScript
+- NgRx (gestion d’état pour les favoris)
+- RxJS / Observables
+- Angular Router
+- Guards & Resolvers
+- Reactive Forms
+- HTTP Client
+- JSON Server
+- Bootstrap / Tailwind CSS
+- Redux DevTools
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## 🏗️ Architecture du projet
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+L’application est structurée en plusieurs modules et composants :
 
-## Further help
+- **Auth Module**
+  - Inscription
+  - Connexion
+  - AuthGuard
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- **Home / Search Module**
+  - Barre de recherche
+  - Liste des offres (pagination)
+  - Filtres
+
+- **Favorites Module (NgRx)**
+  - Gestion des favoris via Store
+  - Actions / Reducers / Effects
+  - Synchronisation avec JSON Server
+
+- **Applications Module**
+  - Suivi des candidatures
+  - Gestion des statuts (En attente / Accepté / Refusé)
+  - Notes personnelles
+
+- **Profile Module**
+  - Modification des informations personnelles
+  - Suppression du compte
+
+Au moins une route est configurée en **Lazy Loading**.
+
+---
+
+## 🔐 Authentification (Fake Auth)
+
+Les utilisateurs sont stockés dans `db.json` (JSON Server).
+
+### Fonctionnement :
+
+1. Vérification email/mot de passe dans la table `users`
+2. Si valide :
+   - L’objet utilisateur (sans mot de passe) est stocké dans `localStorage` ou `sessionStorage`
+3. AuthGuard protège les routes privées
+
+📌 Les données stockées :
+
+- `localStorage / sessionStorage` → Session utilisateur
+- JSON Server → Users, Favorites, Applications
+
+---
+
+## 🔎 Recherche d’emplois
+
+### Filtres obligatoires
+
+- Mot clé (titre du poste)
+- Localisation
+
+### Règles métier
+
+- La recherche filtre uniquement sur le **titre**
+- Tri par date (du plus récent au plus ancien)
+- Loader affiché pendant la requête
+- Pagination (10 résultats par page)
+
+### Informations affichées
+
+- Titre
+- Entreprise
+- Localisation
+- Date
+- Description courte
+- Salaire (si disponible)
+- Bouton "Voir l’offre"
+- Bouton "Ajouter aux favoris" (authentifié)
+- Bouton "Suivre cette candidature" (authentifié)
+
+---
+
+## ⭐ Gestion des Favoris (NgRx)
+
+Fonctionnalités :
+
+- Ajouter une offre aux favoris
+- Empêcher les doublons
+- Indicateur visuel si déjà en favori
+- Supprimer un favori
+- Page dédiée aux favoris
+
+Structure JSON :
+
+```json
+{
+  "id": 1,
+  "userId": 2,
+  "offerId": 101,
+  "title": "Développeur Angular",
+  "company": "Entreprise A",
+  "location": "Casablanca"
+}
